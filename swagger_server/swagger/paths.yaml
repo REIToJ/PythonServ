@@ -1,0 +1,88 @@
+paths:
+  /games:
+    get:
+      summary: Get a list of games
+      description: Retrieve a list of games available in the shop.
+      responses:
+        200:
+          description: A list of games
+      tags:
+        - Games
+
+    post:
+      summary: Add a new game
+      description: Add a new game to the shop.
+      requestBody:
+        description: Game details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        201:
+          description: Game added successfully
+      tags:
+        - Games
+
+  /games/{game_id}:
+    get:
+      summary: Get a game by ID
+      description: Retrieve a game by its unique ID.
+      parameters:
+        - name: game_id
+          in: path
+          description: ID of the game
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: The requested game
+        404:
+          description: Game not found
+      tags:
+        - Games
+
+    put:
+      summary: Update a game by ID
+      description: Update an existing game by its ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the game
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated game details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        200:
+          description: Game updated successfully
+        404:
+          description: Game not found
+      tags:
+        - Games
+
+    delete:
+      summary: Delete a game by ID
+      description: Delete a game by its ID.
+      parameters:
+        - name: id
+          in: path
+          description: ID of the game
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Game deleted successfully
+        404:
+          description: Game not found
+      tags:
+        - Games

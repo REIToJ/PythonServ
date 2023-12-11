@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Game Shop API
+  description: An API for managing a game shop.
+  version: 1.0.0
+servers:
+- url: /
+paths:
+  /games:
+    get:
+      tags:
+      - Games
+      summary: Get a list of games
+      description: Retrieve a list of games available in the shop.
+      operationId: games_get
+      responses:
+        "200":
+          description: A list of games
+      x-openapi-router-controller: swagger_server.controllers.games_controller
+    post:
+      tags:
+      - Games
+      summary: Add a new game
+      description: Add a new game to the shop.
+      operationId: games_post
+      requestBody:
+        description: Game details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+        required: true
+      responses:
+        "201":
+          description: Game added successfully
+      x-openapi-router-controller: swagger_server.controllers.games_controller
+  /games/{game_id}:
+    get:
+      tags:
+      - Games
+      summary: Get a game by ID
+      description: Retrieve a game by its unique ID.
+      operationId: games_id_get
+      parameters:
+      - name: game_id
+        in: path
+        description: ID of the game
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: The requested game
+        "404":
+          description: Game not found
+      x-openapi-router-controller: swagger_server.controllers.games_controller
+    put:
+      tags:
+      - Games
+      summary: Update a game by ID
+      description: Update an existing game by its ID.
+      operationId: games_id_put
+      parameters:
+      - name: game_id
+        in: path
+        description: ID of the game
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      requestBody:
+        description: Updated game details
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+        required: true
+      responses:
+        "200":
+          description: Game updated successfully
+        "404":
+          description: Game not found
+      x-openapi-router-controller: swagger_server.controllers.games_controller
+    delete:
+      tags:
+      - Games
+      summary: Delete a game by ID
+      description: Delete a game by its ID.
+      operationId: games_id_delete
+      parameters:
+      - name: game_id
+        in: path
+        description: ID of the game
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "204":
+          description: Game deleted successfully
+        "404":
+          description: Game not found
+      x-openapi-router-controller: swagger_server.controllers.games_controller
+components:
+  schemas:
+    Game:
+      required:
+      - price
+      - title
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number

@@ -1,0 +1,16 @@
+components:
+  schemas:
+    Game:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+      required:
+        - title
+        - price

@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./swagger_server",
+        "./swagger_server/models"
+    ]
+}
